@@ -1,0 +1,26 @@
+# news
+http://www.newslookup.com/rss/newslookup-world.rss news "~Lookup Wires"
+http://www.newslookup.com/rss/wires/newslookup-wires.rss news "~Lookup News Wires"
+https://www.aa.com.tr/tr/rss/default?cat=turkiye news ~AA
+https://www.economist.com/international/rss.xml news ~Economist
+https://news.google.com/rss/search?q=source:AFP&um=1&ie=UTF-8&num=100&hl=fr&gl=FR&ceid=FR:fr news ~AFP
+https://news.google.com/rss/search?q=source:Reuters&um=1&ie=UTF-8&num=100&hl=en-CA&gl=CA&ceid=CA:en news ~Reuters
+https://news.google.com/rss/search?q=source:Bloomberg&um=1&ie=UTF-8&num=100&hl=en-CA&gl=CA&ceid=CA:en news ~Bloomberg
+https://news.google.com/rss/search?q=apnews&when:7d&hl=en-CA&gl=CA&ceid=CA%3Aen news ~AP
+https://news.google.com/rss/search?q=source:UPI&um=1&ie=UTF-8&num=100&hl=en-CA&gl=CA&ceid=CA:en news ~UPI
+# https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US
+
+# tech
+https://news.ycombinator.com/rss tech "~Hacker News"
+http://www.newslookup.com/rss/newslookup-techwire.rss tech "~Lookup Tech"
+
+## https://en.wikinews.org/w/index.php?title=Special:NewsFeed&feed=atom&categories=Published&notcategories=No%20publish%7CArchived%7CAutoArchived%7Cdisputed&namespace=0&count=30&hourcount=124&ordermethod=categoryadd&stablepages=only news
+## https://www.independent.co.uk/news/world/rss news
+
+# blog
+http://groupnameforgrapejuice.blogspot.com/feeds/posts/default?alt=rss blog ~Grapejuice
+
+# lit
+https://feeds.feedburner.com/TheParisReviewBlog	lit
+https://lrb.co.uk/feeds/rss	lit
+https://boards.4channel.org/lit/index.rss

@@ -1,0 +1,9 @@
+[url "https://aur.archlinux.org/"]
+    insteadOf = "aur:"
+
+[url "https://github/"]
+    insteadOf = "gh:"
+
+[user]
+	name = Pherrephatta
+	email = xenotimex@gmail.com

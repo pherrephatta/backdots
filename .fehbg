@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/thread/downloads/images/StainedGlassWindow3.png' --bg-fill '/home/thread/downloads/images/StainedGlassWindow2.png'

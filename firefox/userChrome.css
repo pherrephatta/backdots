@@ -1,7 +1,11 @@
 #TabsToolbar { 
-visibility: collapse; !important
+	visibility: collapse; !important
+}
+#tabbrowser-tabs {
+	visibility: collapse !important;
 }
 
-#tabbrowser-tabs {
-visibility: collapse !important;
+#sidebar-splitter {
+	border-color: darkgrey !important;
+	width: 1px !important;
 }

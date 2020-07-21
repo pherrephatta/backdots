@@ -11,6 +11,13 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'https://github.com/vimwiki/vimwiki'
+Plug 'https://github.com/mhinz/vim-startify'
+Plug 'https://github.com/Raimondi/delimitMate'
+Plug 'https://github.com/mbbill/undotree'
+Plug 'https://github.com/ap/vim-buftabline'
+" Plug 'https://github.com/tpope/vim-surround'
+" Plug 'https://github.com/vim-airline/vim-airline'
+" Plug 'https://github.com/zefei/vim-wintabs'
 
 call plug#end()
 

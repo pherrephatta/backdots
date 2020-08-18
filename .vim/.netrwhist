@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/thread'
+let g:netrw_dirhist_6='/home/thread/drives/erato/projects/new/txtedit'
+let g:netrw_dirhist_5='/home/thread/.config/i3'
+let g:netrw_dirhist_4='/home/thread'
+let g:netrw_dirhist_3='/home/thread/.config/rofi'
+let g:netrw_dirhist_2='/home/thread/.config/polybar'
+let g:netrw_dirhist_1='/home/thread/.mozilla/firefox/pd6shovj.default-release/chrome'

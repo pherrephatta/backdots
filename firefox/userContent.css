@@ -2,3 +2,7 @@
 	scrollbar-color: darkgrey grey;
 /*	scrollbar-width: thin; */
 }
+
+input, textarea {
+   color:#000 !important;
+}

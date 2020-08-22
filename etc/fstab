@@ -2,19 +2,20 @@
 # See fstab(5) for details.
 
 # <file system> <dir> <type> <options> <dump> <pass>
-# /dev/sdd1 - /dev/mapper/cloth-root
-UUID=b37d0024-a325-4856-888d-5466817fd184	/         	ext4      	rw,relatime,data=ordered	0 1
-# /dev/sdd1 - /dev/mapper/cloth-home
-UUID=4a19d724-5380-4caa-aa23-a78cc74440c7	/home     	ext4      	rw,relatime,data=ordered	0 2
-# /dev/sdd2 - boot
-UUID=ffef255c-0432-4f74-b5f1-2a8aff854740	/boot     	ext4      	rw,relatime,data=ordered	0 2
-# /dev/sdd1 - /dev/mapper/cloth-swap
-UUID=cac0df25-137a-4819-9afa-966f4c121693	none      	swap      	defaults,pri=-2			0 0
+# /dev/sda2
+UUID=97438e36-ddf6-4128-aa6c-f31dbd1b17a0	/         	ext4      	rw,relatime	0 1
+
+# /dev/sda4
+UUID=9e76de5d-f2a1-4fc3-8f85-e6f37c6006ce	/home     	ext4      	rw,relatime	0 2
+
+# /dev/sda3
+UUID=5eefc080-8106-4f2b-9cc6-1569a355a7ea	none      	swap      	defaults  	0 0
 
 # Thalia
 UUID=3602710d-a078-4965-bd3c-d6c33a39cf43	/home/thread/drives/thalia	ext4	defaults	0 2
+
 # Erato
 UUID=3ab228d2-349e-4c8f-8a5e-4c8588cd6480	/home/thread/drives/erato	ext4	defaults	0 2
+
 # Euterpe
 UUID=c10f4f92-4a95-4691-ba16-582e85b4ef5f 	/home/thread/drives/euterpe	ext4	defaults	0 2
-

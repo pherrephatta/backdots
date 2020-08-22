@@ -16,6 +16,7 @@ Plug 'https://github.com/Raimondi/delimitMate'
 Plug 'https://github.com/mbbill/undotree'
 Plug 'https://github.com/ap/vim-buftabline'
 Plug 'https://github.com/vim-scripts/OmniCppComplete'
+Plug 'https://github.com/dense-analysis/ale'
 " Plug 'https://github.com/tyru/open-browser.vim'
 " Plug 'https://github.com/tpope/vim-surround'
 " Plug 'https://github.com/vim-airline/vim-airline'
@@ -90,10 +91,10 @@ set spelllang=en_us
 set nospell
 
 " Fuzzy File Search
-" Hit TAB to :find partial match, 
+" Hit TAB to ':find' partial match, 
 " * to make fuzzy
 " ** for subfolders
-set path+=**
+set path+=*
 set wildmenu
 
 " Tag Jumping
@@ -107,7 +108,8 @@ set tags+=~/.vim/tags/sdl2
 " Completion
 " See ':help ins-completion' for more info
 set complete=.,w,b,u,t,i,kspell
-set omnifunc=syntaxcomplete#Completd
+"set omnifunc=syntaxcomplete#Completd
+set omnifunc=ale#completion#OmniFunc " Use with <C-x><C-o>
 " OmniCompletion
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
@@ -128,5 +130,19 @@ set completeopt=menuone,menu,longest,preview
 " CTRL+6 or CTRL+^ to go back, or simply :bd
 let g:netrw_liststyle=3	" Enable tree view
 let g:netrw_banner=0 " Disable banner
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-"let g:netrw_list_hide=netrw_gitignore#Hide()
+
+" ALE Linting
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 0
+"let g:ale_completion_enabled = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\	'c': ['gcc'],
+\	'cpp': ['gcc'],
+\}
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++17'
+let g:ale_c_clang_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_clang_options = '-Wall -O2 -std=c++17'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''

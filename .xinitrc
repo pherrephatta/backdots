@@ -3,3 +3,4 @@ picom &
 numlockx &
 redshift &
 exec i3
+~/.fehbg &

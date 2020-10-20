@@ -1,2 +1,3 @@
 #!/bin/sh
-feh --no-fehbg --bg-fill '/home/thread/.config/feh/StainedGlassWindow3.png' --bg-fill '/home/thread/.config/feh/StainedGlassWindow2.png'
+#feh --no-fehbg --bg-fill '/home/thread/.config/feh/StainedGlassWindow3.png' --bg-fill '/home/thread/.config/feh/StainedGlassWindow2.png'
+feh --no-fehbg --bg-tile '/home/thread/downloads/images/tile-wallpapers/flowers-blue2.png'

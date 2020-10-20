@@ -1,3 +1,7 @@
+" ####### Neovim Sources #######
+" https://neovim.io/doc/user/nvim.html#nvim-from-vim
+" https://neovim.io/doc/user/vim_diff.html#vim-differences
+
 " ####### vim-plug #######
 "
 " #### Commands ####
@@ -17,6 +21,10 @@ Plug 'https://github.com/mbbill/undotree'
 Plug 'https://github.com/ap/vim-buftabline'
 Plug 'https://github.com/vim-scripts/OmniCppComplete'
 Plug 'https://github.com/dense-analysis/ale'
+Plug 'https://github.com/majutsushi/tagbar'
+Plug 'https://github.com/sheerun/vim-polyglot'
+Plug 'https://github.com/lifepillar/vim-mucomplete'
+Plug 'https://github.com/xavierd/clang_complete'
 " Plug 'https://github.com/tyru/open-browser.vim'
 " Plug 'https://github.com/tpope/vim-surround'
 " Plug 'https://github.com/vim-airline/vim-airline'
@@ -38,7 +46,7 @@ set history=10000
 set t_Co=256
 set termguicolors
 colorscheme neonwave
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 
 " #### UI ####
 set autoindent
@@ -62,7 +70,10 @@ set hlsearch 		" Highlight searched
 set incsearch		" Incremental search
 set laststatus=2	" Always show status line
 set mouse=a 		" Enable mouse
-set ttyfast 		" Faster redrawing
+
+if !has('nvim')
+	set ttyfast 		" Faster redrawing
+endif
 
 " In normal mode: Ctrl-A will increment the next number, Ctrl-X will decrement the next number
 " An octal number starts with '0', and a hex number starts with '0x' or '0X'. Decimal numbers can be preceded with a sign (any '+' is ignored, while '-' makes the number negative). 
@@ -71,8 +82,8 @@ set nrformats+=alpha
 
 " Persistent Undo Tree file
 if has("persistent_undo")
-set undodir=~/.vim/undodir/
 set undofile
+set undodir=~/.vim/undodir/
 endif
 " UndoTree
 " Press ? in undotree window for quick help
@@ -106,22 +117,48 @@ set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/sdl2
 
 " Completion
+" ^ x ^ n` to search within file
+" ^ x ^ f` to search filenames
+" ^ x ^ ]` to search tags
+" ^ n` to search anything specified by `complete` option (and go to next suggestion)
+" ^ p` to go to previous suggestion
 " See ':help ins-completion' for more info
-set complete=.,w,b,u,t,i,kspell
+"set complete=.,w,b,u,t,i,kspell
 "set omnifunc=syntaxcomplete#Completd
 set omnifunc=ale#completion#OmniFunc " Use with <C-x><C-o>
 " OmniCompletion
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+""let OmniCpp_NamespaceSearch = 1
+""let OmniCpp_GlobalScopeSearch = 1
+""let OmniCpp_ShowAccess = 1
+""let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+""let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+""let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+""let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+""let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
+""au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+""set completeopt=menuone,menu,longest,preview
+
+" MuComplete
+set complete=.,w,b,u,k
+"set completeopt+=menuone,noselect
+let g:mucomplete#enable_auto_at_startup = 1 " MuComplete at startup
+"let g:mucomplete#completion_delay = 1 " delay to autocompletion
+let g:mucomplete#force_manual = 1 " No auto popup, press tab
+" Allow auto popup without tab key for member completion in cpp, also if manually invoked via tab key:
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags']
+if !has('nvim')
+	let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
+	let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
+	set shortmess += c " turn off completion messages
+	set belloff += ctrlg " turn off beeps during completion
+endif
+" clang-complete
+let g:clang_use_library = 1
+let g:clang_complete_auto = 1
+let g:clang_library_path='/usr/lib/libclang.so.10'
+let g:clang_user_options = '-std=c++17'
 
 " Explorer
 " See ':help netrw-browse-maps' for more info
@@ -139,6 +176,7 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \	'c': ['gcc'],
 \	'cpp': ['gcc'],
+\	'java': ['javac'],
 \}
 let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
 let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++17'
@@ -146,3 +184,26 @@ let g:ale_c_clang_options = '-Wall -O2 -std=c99'
 let g:ale_cpp_clang_options = '-Wall -O2 -std=c++17'
 let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+
+" Toggle netrw 
+let g:NetrwIsOpen=0
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i 
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore	20 " place netrw to left vertical split
+    endif
+endfunction
+" Press F3 to toggle netrw
+nnoremap <silent> <F3> :call ToggleNetrw()<CR>

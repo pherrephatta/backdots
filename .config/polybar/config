@@ -53,7 +53,7 @@ font-1 = siji:pixelsize=14:antialias=true;2
 dpi-x = 0
 dpi-y = 0
 
-modules-left = pulseaudio 
+modules-left = pulseaudio
 modules-center = i3
 modules-right = memory cpu eth date
 line-size = 0
@@ -90,7 +90,7 @@ font-1 = siji:pixelsize=14:antialias=true;2
 dpi-x = 0
 dpi-y = 0
 
-modules-left = pulseaudio 
+modules-left = pulseaudio
 modules-center = i3
 modules-right = date
 line-size = 0
@@ -325,6 +325,13 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/alsa]
 type = internal/alsa
+
+#master-soundercard = hw:PCH
+#headphone-soundcard = hw:HC6
+master-mixer = Master 
+#headphone-mixer = Headphone
+headphone-id = 9 
+interval = 5
 
 format-volume = <label-volume> <bar-volume>
 label-volume = VOL

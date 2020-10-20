@@ -15,11 +15,15 @@ alias bookworm='com.github.babluboy.bookworm'
 alias lsd='ls -la --group-directories-first'
 alias fortune='fortune -a | fmt -80 -s | $(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n'
 alias gitit='git add -A && git commit -am 'autobot' && git push'
+alias vim='nvim'
 
 ## PS1 ##
-# PS1='[\u@\h \W]\$ '
+PS1='[\u@\h \W]\$ '
 #export PS1="\[\033[38;5;147m\]\@\[$(tput sgr0)\]\[\033[38;5;15m\]: \[$(tput sgr0)\]\[\033[38;5;167m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] [\[$(tput sgr0)\]\[\033[38;5;147m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]]>\n\[$(tput sgr0)\]\[\033[38;5;167m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
-export PS1="\[\033[38;5;196m\][\A]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;182m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;8m\]@\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;188m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\n\[$(tput sgr0)\]\[\033[38;5;8m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+
+#export PS1="\[\033[38;5;196m\][\A]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;182m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;8m\]@\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;188m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\n\[$(tput sgr0)\]\[\033[38;5;8m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+
+export PS1="\[\033[38;5;14m\][\[$(tput bold)\]\A\[$(tput sgr0)\]]\[$(tput sgr0)\]\[\033[38;5;255m\] \[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;13m\]\u\[$(tput sgr0)\] \[$(tput sgr0)\]\[\033[38;5;14m\]@\[$(tput bold)\]\w\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;13m\]\\$\[$(tput sgr0)\] \[$(tput sgr0)\]"
 
 ## restic defaults ##
 export B2_ACCOUNT_ID="753810edffe2"

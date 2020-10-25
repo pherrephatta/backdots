@@ -112,9 +112,12 @@ set wildmenu
 " ^] to jump to tag under cursor
 " g^] for ambiguous tags
 " ^t jump pack up tag stack
-command! MakeTags !ctags -R . " Create a ctag file
+" Create a ctag file
+command! MakeTags !ctags --c++-kinds=+p --fields=+iaS --extras=+q --recurse=yes . 
 set tags+=~/.vim/tags/cpp 
 set tags+=~/.vim/tags/sdl2
+set tags+=./tags
+set tags+=./src/tags
 
 " Completion
 " ^ x ^ n` to search within file
@@ -125,7 +128,7 @@ set tags+=~/.vim/tags/sdl2
 " See ':help ins-completion' for more info
 "set complete=.,w,b,u,t,i,kspell
 "set omnifunc=syntaxcomplete#Completd
-set omnifunc=ale#completion#OmniFunc " Use with <C-x><C-o>
+"set omnifunc=ale#completion#OmniFunc " Use with <C-x><C-o>
 " OmniCompletion
 ""let OmniCpp_NamespaceSearch = 1
 ""let OmniCpp_GlobalScopeSearch = 1
@@ -140,20 +143,25 @@ set omnifunc=ale#completion#OmniFunc " Use with <C-x><C-o>
 ""set completeopt=menuone,menu,longest,preview
 
 " MuComplete
-set complete=.,w,b,u,k
-"set completeopt+=menuone,noselect
+"set complete=.,w,b,u,k
+set completeopt+=menuone,noselect
+"set shortmess+=c " Shutoff completion messages
+"set belloff+=ctrlg " Use if Vim beeps during completion
 let g:mucomplete#enable_auto_at_startup = 1 " MuComplete at startup
 "let g:mucomplete#completion_delay = 1 " delay to autocompletion
-let g:mucomplete#force_manual = 1 " No auto popup, press tab
+"let g:mucomplete#force_manual = 1 " No auto popup, press tab
 " Allow auto popup without tab key for member completion in cpp, also if manually invoked via tab key:
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags']
+"let g:mucomplete#chains = {}
+"let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags']
+"let g:mucomplete#chains.default = ['omni', 'path', 'tags']
+
 if !has('nvim')
 	let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
 	let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
 	set shortmess += c " turn off completion messages
 	set belloff += ctrlg " turn off beeps during completion
 endif
+
 " clang-complete
 let g:clang_use_library = 1
 let g:clang_complete_auto = 1

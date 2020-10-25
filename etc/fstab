@@ -2,14 +2,18 @@
 # See fstab(5) for details.
 
 # <file system> <dir> <type> <options> <dump> <pass>
+
 # /dev/sda2
-UUID=97438e36-ddf6-4128-aa6c-f31dbd1b17a0	/         	ext4      	rw,relatime	0 1
+UUID=9b5d718b-c32d-4cda-a660-7e9ede3de573	/         	ext4      	rw,relatime	0 1
+
+# /dev/sda1
+UUID=CC11-469E      	/efi      	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
 
 # /dev/sda4
-UUID=9e76de5d-f2a1-4fc3-8f85-e6f37c6006ce	/home     	ext4      	rw,relatime	0 2
+UUID=2a460b5f-75f3-4830-8830-f55339925fcf	/home     	ext4      	rw,relatime	0 2
 
 # /dev/sda3
-UUID=5eefc080-8106-4f2b-9cc6-1569a355a7ea	none      	swap      	defaults  	0 0
+UUID=53c0fabf-e165-4000-a5e0-f50a2063632e	none      	swap      	defaults  	0 0
 
 # Thalia
 UUID=3602710d-a078-4965-bd3c-d6c33a39cf43	/home/thread/drives/thalia	ext4	defaults	0 2

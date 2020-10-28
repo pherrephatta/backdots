@@ -19,12 +19,13 @@ Plug 'https://github.com/mhinz/vim-startify'
 Plug 'https://github.com/Raimondi/delimitMate'
 Plug 'https://github.com/mbbill/undotree'
 Plug 'https://github.com/ap/vim-buftabline'
-Plug 'https://github.com/vim-scripts/OmniCppComplete'
-Plug 'https://github.com/dense-analysis/ale'
+"Plug 'https://github.com/dense-analysis/ale'
 Plug 'https://github.com/majutsushi/tagbar'
 Plug 'https://github.com/sheerun/vim-polyglot'
-Plug 'https://github.com/lifepillar/vim-mucomplete'
-Plug 'https://github.com/xavierd/clang_complete'
+Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'https://github.com/lifepillar/vim-mucomplete'
+"Plug 'https://github.com/xavierd/clang_complete'
+"Plug 'https://github.com/vim-scripts/OmniCppComplete'
 " Plug 'https://github.com/tyru/open-browser.vim'
 " Plug 'https://github.com/tpope/vim-surround'
 " Plug 'https://github.com/vim-airline/vim-airline'
@@ -119,6 +120,91 @@ set tags+=~/.vim/tags/sdl2
 set tags+=./tags
 set tags+=./src/tags
 
+" Explorer
+" See ':help netrw-browse-maps' for more info
+" use ':Explorer' to open
+" 'gh' to hide dot files
+" CTRL+6 or CTRL+^ to go back, or simply :bd
+let g:netrw_liststyle=3	" Enable tree view
+let g:netrw_banner=0 " Disable banner
+
+" ALE Linting
+" Only run linters named in ale_linters settings.
+"let g:ale_linters_explicit = 0
+"let g:ale_completion_enabled = 1
+"let g:ale_linters = {
+"\   'javascript': ['eslint'],
+"\	'c': ['gcc'],
+"\	'cpp': ['gcc'],
+"\	'java': ['javac'],
+"\}
+"let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+"let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++17'
+"let g:ale_c_clang_options = '-Wall -O2 -std=c99'
+"let g:ale_cpp_clang_options = '-Wall -O2 -std=c++17'
+"let g:ale_c_cppcheck_options = ''
+"let g:ale_cpp_cppcheck_options = ''
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+
+" Toggle netrw 
+let g:NetrwIsOpen=0
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i 
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore	20 " place netrw to left vertical split
+    endif
+endfunction
+" Press F3 to toggle netrw
+nnoremap <silent> <F3> :call ToggleNetrw()<CR>
+
+"CoC Completion
+set updatetime=300	" Higher update time
+set shortmess+=c	" Don't pass messages to ins-completion-menu
+set cmdheight=2		" More space for displaying messages
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+" Recently vim can merge signcolumn and number column into one
+if has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
 " Completion
 " ^ x ^ n` to search within file
 " ^ x ^ f` to search filenames
@@ -144,74 +230,25 @@ set tags+=./src/tags
 
 " MuComplete
 "set complete=.,w,b,u,k
-set completeopt+=menuone,noselect
+"set completeopt+=menuone,noselect
 "set shortmess+=c " Shutoff completion messages
 "set belloff+=ctrlg " Use if Vim beeps during completion
-let g:mucomplete#enable_auto_at_startup = 1 " MuComplete at startup
+"let g:mucomplete#enable_auto_at_startup = 1 " MuComplete at startup
 "let g:mucomplete#completion_delay = 1 " delay to autocompletion
 "let g:mucomplete#force_manual = 1 " No auto popup, press tab
 " Allow auto popup without tab key for member completion in cpp, also if manually invoked via tab key:
 "let g:mucomplete#chains = {}
 "let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags']
 "let g:mucomplete#chains.default = ['omni', 'path', 'tags']
-
-if !has('nvim')
-	let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
-	let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
-	set shortmess += c " turn off completion messages
-	set belloff += ctrlg " turn off beeps during completion
-endif
+"if !has('nvim')
+""	let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
+""	let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
+"	set shortmess += c " turn off completion messages
+"	set belloff += ctrlg " turn off beeps during completion
+"endif
 
 " clang-complete
-let g:clang_use_library = 1
-let g:clang_complete_auto = 1
-let g:clang_library_path='/usr/lib/libclang.so.10'
-let g:clang_user_options = '-std=c++17'
-
-" Explorer
-" See ':help netrw-browse-maps' for more info
-" use ':Explorer' to open
-" 'gh' to hide dot files
-" CTRL+6 or CTRL+^ to go back, or simply :bd
-let g:netrw_liststyle=3	" Enable tree view
-let g:netrw_banner=0 " Disable banner
-
-" ALE Linting
-" Only run linters named in ale_linters settings.
-let g:ale_linters_explicit = 0
-"let g:ale_completion_enabled = 1
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\	'c': ['gcc'],
-\	'cpp': ['gcc'],
-\	'java': ['javac'],
-\}
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++17'
-let g:ale_c_clang_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_clang_options = '-Wall -O2 -std=c++17'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
-
-" Tagbar
-nmap <F8> :TagbarToggle<CR>
-
-" Toggle netrw 
-let g:NetrwIsOpen=0
-function! ToggleNetrw()
-    if g:NetrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i 
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent Lexplore	20 " place netrw to left vertical split
-    endif
-endfunction
-" Press F3 to toggle netrw
-nnoremap <silent> <F3> :call ToggleNetrw()<CR>
+"let g:clang_use_library = 1
+"let g:clang_complete_auto = 1
+"let g:clang_library_path='/usr/lib/libclang.so.10'
+"let g:clang_user_options = '-std=c++17'
